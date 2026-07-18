@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeru Soriano - Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap');
+        
+        body { font-family: 'Poppins', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); background-size: 400% 400%; animation: gradientAnimation 15s ease infinite; }
+        @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .container { max-width: 900px; padding: 50px; background: rgba(255, 255, 255, 0.95); border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); margin: 20px; position: relative; }
+        .main-content { display: flex; align-items: center; gap: 40px; position: relative; }
+        
+        /* GLOWY CLICK HINT */
+        .click-hint { 
+            position: absolute; 
+            top: 50%; 
+            right: -180px; 
+            transform: translateY(-50%); 
+            text-align: center; 
+            font-weight: 800; 
+            color: #fff;
+            text-shadow: 0 0 10px #e73c7e, 0 0 20px #e73c7e, 0 0 30px #e73c7e;
+            animation: pulse 1.5s infinite; 
+            z-index: 10;
+            pointer-events: none;
+        }
+        .arrow { font-size: 50px; text-shadow: 0 0 10px #e73c7e, 0 0 20px #e73c7e; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: translateY(-50%) translateX(0); } 50% { opacity: 0.7; transform: translateY(-50%) translateX(-10px); } }
+        
+        .left { flex: 1; }
+        .name { font-size: 50px; color: #1a1a1a; font-weight: 800; margin: 0; }
+        .tagline { font-size: 20px; color: #333; margin: 10px 0; font-weight: 600; }
+        .desc { color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
+        
+        .btn { 
+            padding: 15px 30px; border-radius: 50px; border: 2px solid rgba(255, 255, 255, 0.5); 
+            font-weight: bold; cursor: pointer; color: white; transition: all 0.3s ease; 
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px 5px currentColor; border-color: rgba(255, 255, 255, 0.8); }
+        
+        .profile-img { width: 300px; border-radius: 30px; cursor: pointer; transition: all 0.5s ease; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .profile-img:hover { transform: scale(1.05) rotate(-2deg); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 50px; border-radius: 40px; max-width: 700px; width: 90%; animation: slideDown 0.5s ease; }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .white-card { background: #ffffff; padding: 20px; border-radius: 20px; margin-bottom: 25px; display: flex; align-items: center; gap: 30px; border: 3px solid #23a6d5; box-shadow: 8px 8px 0px rgba(35, 166, 213, 0.3); transition: all 0.4s ease; }
+        .white-card:hover { transform: scale(1.05); box-shadow: 12px 12px 0px rgba(35, 166, 213, 0.5); }
+        .exp-img { width: 120px; flex-shrink: 0; border-radius: 15px; }
+        .text-side { flex-grow: 1; text-align: left; }
+        .close-btn { background: #333; color: white; padding: 12px 30px; border-radius: 50px; border: none; cursor: pointer; margin-top: 30px; display: block; width: 100%; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop><source src="sound.mp3" type="audio/mpeg"></audio>
+
+<div class="container">
+    <div class="main-content">
+        <div class="left">
+            <h1 class="name">Jeru Soriano</h1>
+            <!-- Pinalitan dito ang tagline -->
+            <p class="tagline">Hire me as your Social Media Moderator and Graphic Designer</p>
+            <p class="desc">I have extensive professional experience in moderating social media pages, creating engaging content, and executing effective digital marketing strategies.</p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" style="background:#1877f2" onclick="window.open('https://www.facebook.com/profile.php?id=61590495506121')">Facebook</button>
+                <button class="btn" style="background:#d93025" onclick="playMusic(); document.getElementById('emailModal').style.display='flex'">Email Me</button>
+                <button class="btn" style="background:#444" onclick="playMusic(); document.getElementById('expModal').style.display='flex'">Experience</button>
+            </div>
+        </div>
+        
+        <div class="click-hint">
+            <span>Click for Info</span>
+            <div class="arrow">←</div> 
+        </div>
+        
+        <img src="gwapo.png" alt="Profile" class="profile-img" onclick="document.getElementById('infoModal').style.display='flex'">
+    </div>
+</div>
+
+<!-- Modals -->
+<div id="infoModal" class="modal" onclick="this.style.display='none'">
+    <div class="modal-content" onclick="event.stopPropagation()" style="text-align: center;">
+        <h2 style="color: #e73c7e;">Personal Information</h2>
+        <p><strong>Birthday:</strong> August 29, 2006 | <strong>Age:</strong> 19</p>
+        <p>Graduate of <strong>Sampaguita High School</strong> (SHS).</p>
+        <p><strong>Status:</strong> Incoming First-Year College Student</p>
+        <button class="close-btn" onclick="document.getElementById('infoModal').style.display='none'">Close</button>
+    </div>
+</div>
+
+<div id="expModal" class="modal" onclick="this.style.display='none'">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h2 style="text-align: center; color: #23a6d5; margin-bottom: 30px;">My Expertise</h2>
+        
+        <div class="white-card">
+            <img src="social.png" class="exp-img">
+            <div class="text-side">
+                <!-- Pinalitan din dito sa expertise list -->
+                <h3 style="margin:0">01. Social Media Moderator</h3>
+                <p style="margin:5px 0 0 0; font-size: 14px; color: #555;">I ensure a safe and positive community environment by managing interactions, responding to inquiries, and maintaining brand standards across all platforms.</p>
+            </div>
+        </div>
+
+        <div class="white-card">
+            <img src="graph.png" class="exp-img">
+            <div class="text-side">
+                <h3 style="margin:0">02. Content Strategy</h3>
+                <p style="margin:5px 0 0 0; font-size: 14px; color: #555;">I apply modern design techniques and data-driven strategies to craft professional-grade graphics and content calendars that elevate your brand's visual identity.</p>
+            </div>
+        </div>
+
+        <div class="white-card">
+            <img src="web.png" class="exp-img">
+            <div class="text-side">
+                <h3 style="margin:0">03. Website Maker</h3>
+                <p style="margin:5px 0 0 0; font-size: 14px; color: #555;">I build websites using modern development techniques to ensure they are fully responsive, high-performing, and provide a seamless, user-friendly experience.</p>
+            </div>
+        </div>
+        
+        <button class="close-btn" onclick="document.getElementById('expModal').style.display='none'">Close</button>
+    </div>
+</div>
+
+<div id="emailModal" class="modal" onclick="this.style.display='none'">
+    <div class="modal-content" onclick="event.stopPropagation()" style="text-align: center;">
+        <img src="email.png" style="width: 80px;">
+        <h3>Let's Connect!</h3>
+        <p style="color: #d93025; font-size: 24px; font-weight: bold;">Jerusrn@gmail.com</p>
+        <button class="close-btn" onclick="document.getElementById('emailModal').style.display='none'">Close</button>
+    </div>
+</div>
+
+<script>
+    function playMusic() { document.getElementById("bgMusic").play().catch(e => console.log("Music ready.")); }
+</script>
+
+</body>
+</html>
